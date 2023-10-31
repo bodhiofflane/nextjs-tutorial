@@ -7,7 +7,7 @@ import Link from 'next/link';
 async function getData() {
   // Это не обычный fetch который мы используем в браузере.
   // Во-первых: Он отрабатывает на сервере. У него расширены возможности со стороны Next.js, а имеено расширен объет с настройкам запроса. Позже.
-  const response = await fetch("https://jsonplaceholder.typicode.com/postsqwecqw", {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
     next: {
       revalidate: 60, // Отвечает за количество секунд кеширования, после которого будет происходить перезапрос постов. Не для пользователя, а для сервера.
     }
