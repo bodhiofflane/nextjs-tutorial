@@ -8,20 +8,20 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
+    "moduleResolution": "bundler", // Для сборщиков. Работает с импортами и экспортами но не требует разширения файлов для отн. путей при импорте.
+    "resolveJsonModule": true, // Можно импортировать JSON. Обычная практика для node.
+    "isolatedModules": true, // Черт его знает.
+    "jsx": "preserve", // Транспиляция в jsx, не переводя <h1></h1> в createReactElement('h1').
+    "incremental": true, // Сохранение информации о графе проекта из последней компиляции.
     "plugins": [
       {
-        "name": "next"
+        "name": "next" // Подключение плагинов, дающих доп.инфо на основе существующих файлов TS.
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"] // Путь до корня.
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"], // Все директории и файлы за которыми ведется наблюдение.
+  "exclude": ["node_modules"] // Директория за которой не ведется наблюдение.
 }

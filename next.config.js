@@ -2,3 +2,5 @@
 const nextConfig = {}
 
 module.exports = nextConfig
+
+// Этот конфиг вообще пустой
