@@ -25,9 +25,7 @@ type Props = {
 // Мы экспортируем не объект а функцию, которая принимает теже самый параметры что и комонент page и возвращает промис с сигнатурой Metadata.
 // Без async тоже работает.
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  // При работе с методатой динамических pages, мы делаем запрос getData на основе params.id. (Это же целых два запроса. Все ок???)
   const post = await getData(params.id);
-
   return {
     title: post.title,
   };
