@@ -4,7 +4,7 @@ import { getPostsBySearch } from '@/services/getPosts';
 import { useState } from "react";
 
 type Props = {
-  onSearch: (query: string) => void;
+  onSearch: any;
 };
 
 const PostSearch = ({ onSearch }: Props) => {

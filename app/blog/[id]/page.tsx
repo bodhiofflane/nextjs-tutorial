@@ -1,6 +1,6 @@
+import { getAllPosts } from '@/services/getPosts';
 import { Metadata } from "next";
 
-// На динамической странице также создаётся функция полученния данных.
 async function getData(id: string) {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/posts/${id}`,
@@ -14,16 +14,23 @@ async function getData(id: string) {
   return response.json();
 }
 
-// Это что, придется типизировать каждую динамическую страицу?
+// Для того что бы у нас работал SSG нам нужно экспортировать отсюда generateStaticParams.
+export async function generateStaticParams() {
+  const posts: any[] = await getAllPosts();
+
+  // Нам нужно получить все посты, обойти их и создать структуру на базе которой у нас будут формироваться ссылки.
+  // Здесь вернется массив объектов с единственным полем slug: [id]. (slug зарезервированное слово)
+  return posts.map((post) => ({
+    slug: post.id.toString(),
+  }))
+}
+
 type Props = {
   params: {
-    id: string; // <- id потому что мы назвали папку id.
+    id: string; 
   };
 };
 
-// Для вложенных динамических страниц работа с методатой - сложнее.
-// Мы экспортируем не объект а функцию, которая принимает теже самый параметры что и комонент page и возвращает промис с сигнатурой Metadata.
-// Без async тоже работает.
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getData(params.id);
   return {
@@ -31,16 +38,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-// Из за того что мы именовали папку [id] у нас есть доступ к параметрам.
 const Post = async ({ params }: Props) => {
   const post = await getData(params.id);
 
-  // ! Так как это серверные компоненты, все c.l() будут отрабатывать на сервере.
-  console.log(post)
-
   return (
     <>
-    {/* Для пользователя это будет просто html-разметка, никакого другого js пользователь не получит*/}
       <h2>{post.title}</h2>
       <p>{post.body}</p>
     </>

@@ -8,6 +8,9 @@ import { getAllPostsThunk, getPostsBySearchThunk } from "@/store/features/postsT
 import PostSearch from "@/components/PostSearch";
 import Posts from "@/components/Posts";
 
+// Ревалидация по таймеру на конкретной странице. (Существует ревалидация по запросу через события)
+export const revalidate = 10; // Через 10 секунд запустится процесс ревалидации.
+
 export default function Blog() {
   const posts = useAppSelector((state) => state.posts.posts);
   const error = useAppSelector((state) => state.posts.error);
